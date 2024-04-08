@@ -12,15 +12,16 @@ class SectionDealTable extends Entity\DataManager
 	public static function getMap()
 	{
 		return array(
-            new Entity\IntegerField('ID', [
-                'primary' => true,
-                'autocomplete' => true
-            ]),
+            // new Entity\IntegerField('ID', [
+            //     'primary' => true,
+            //     'autocomplete' => true
+            // ]),
 			// new Entity\IntegerField('USER_ID',[
             //     'required' => true
             // ]),
 			new Entity\StringField('NAME',[
-                'required' => true
+                'required' => true,
+                'primary' => true,
             ]),
             new Entity\StringField('TITLE', [
                 'required' => true
