@@ -8,26 +8,14 @@ require($_SERVER["DOCUMENT_ROOT"] . "/local/pop_up_Deal/Section_deal.php");
 
 global $USER;
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
-file_put_contents(__DIR__ . '/POST.txt', print_r($_POST, true),FILE_APPEND);
-if (empty($_POST)) {
-    
-    foreach($_POST as $name => $item){
-        if($name != 'save'){
-            $res = SectionDealTable::update($name,[
-                'HIDDEn' => 'Y',
-            ]);
-        }
 
-    }
-    // $checkedValues = array_filter($_POST['checkbox_name'], 'isset'); // В массив попадут только выбранные флажки
-}else{
     if ($USER->IsAdmin()) {
 
         $connection = Bitrix\Main\Application::getConnection();
         $table = \Adtech\SectionDeal\SectionDealTable::class;
-
+        // $connection->dropTable($table::getTableName());
         if ($connection->isTableExists($table::getTableName())) {
-
+                
             $arCrmFields = CUserOptions::GetOption(
                 'crm.entity.editor',
                 'deal_details_common',
@@ -58,7 +46,7 @@ if (empty($_POST)) {
             foreach ($map as $field) {
                 $fields[$field->getName()] = $field;
             }
-            $connection->createTable($table::getTableName(), $fields, ["ID"], ["ID"]);
+            $connection->createTable($table::getTableName(), $fields, ["NAME"]);
 
             $arCrmFields = CUserOptions::GetOption(
                 'crm.entity.editor',
@@ -81,7 +69,7 @@ if (empty($_POST)) {
         $arResult = $SectionDealTableList;
 
     }
-}
+
 
 
 
